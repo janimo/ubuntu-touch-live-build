@@ -409,6 +409,7 @@ case $SUBPROJECT in
 esac
 
 lb config noauto \
+	-a "$ARCH" \
 	--mode ubuntu \
 	--distribution "$SUITE" \
 	--bootstrap-keyring ubuntu-keyring \
