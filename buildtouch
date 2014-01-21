@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ARCH=${1:-i386}
+SUITE=${2:-trusty}
+PROJECT=ubuntu-touch
+PREINSTALLED=true
+IMAGEFORMAT=plain
+
+echo "*******************************************************************************************"
+echo
+echo Building image for $ARCH $SUITE . Change this by passing architecture and suite as arguments
+echo
+echo "*******************************************************************************************"
+sleep 1
+export PROJECT SUITE ARCH PREINSTALLED IMAGEFORMAT
+
+lb config
+sed -i 's,archive-team.internal,people.canonical.com/~ubuntu-archive,' config/hooks/60-install-click.chroot
+
+sudo -E lb build
+
