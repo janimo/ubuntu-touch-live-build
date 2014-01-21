@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ARCH=${1:-i386}
+ARCH=${1:-armhf}
 SUITE=${2:-trusty}
 PROJECT=ubuntu-touch
 PREINSTALLED=true
@@ -13,6 +13,10 @@ echo
 echo "*******************************************************************************************"
 sleep 1
 export PROJECT SUITE ARCH PREINSTALLED IMAGEFORMAT
+
+if [ $ARCH = "armhf" ]; then
+export LB_BOOTSTRAP_QEMU_ARCHITECTURES=armhf LB_BOOTSTRAP_QEMU_STATIC=/usr/bin/qemu-arm-static
+fi
 
 lb config
 sed -i 's,archive-team.internal,people.canonical.com/~ubuntu-archive,' config/hooks/60-install-click.chroot
